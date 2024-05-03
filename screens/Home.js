@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { View, Text, SafeAreaView, TouchableOpacity, StatusBar, Image, TextInput, KeyboardAvoidingView, Platform, FlatList } from 'react-native';
+import { View, Text, SafeAreaView, TouchableOpacity, StatusBar, Image, TextInput, KeyboardAvoidingView, Platform, FlatList, ScrollView } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { debounce } from 'lodash';
 import { fetchCurrentWeather, fetchlocationEndPoint } from '../api/weather';
@@ -52,28 +52,28 @@ const Home = () => {
     const { current, location } = weather;
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#6080E2',padding:20 }}>
+        <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#6080E2',padding:20 }}>
             <StatusBar backgroundColor='black' />
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, marginBottom:20 }}>
                 <View style={{ paddingTop: 0, paddingTop:50 }}>
-                    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', borderRadius: 999, backgroundColor: showSearch ? 'lightgray' : 'transparent' }}>
+                    <View style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', backgroundColor: 'transparent' }}>
                             {showSearch &&
                                 <TextInput
                                     onChangeText={handleTextDebounce}
                                     placeholder="Search city"
                                     placeholderTextColor="white"
-                                    style={{ paddingLeft: 16, height: 40, flex: 1, fontSize: 16, color: 'white', backgroundColor: 'transparent', borderWidth:1,borderColor:'blue' }}
+                                    style={{ paddingLeft: 16, height: 40, flex: 1, fontSize: 16, color: 'white', backgroundColor: 'transparent', borderWidth:1,borderColor:'white' }}
                                 />
                             }
                             <TouchableOpacity
                                 onPress={() => toggleSearch(!showSearch)}
-                                style={{ backgroundColor: 'blue', padding: 8, height: 40, width: 80, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                style={{ backgroundColor: 'darkblue', padding: 8, height: 40, width: 80, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                             >
                                 <Text style={{ color: 'white' }}>{showSearch ? 'Close' : 'Search'}</Text>
                             </TouchableOpacity>
                         </View>
-                    </KeyboardAvoidingView>
+                    </View>
                 </View>
                 <View style={{ flex: 1, paddingTop: 10 }}>
                     {locations?.length > 0 && showSearch && (
@@ -89,7 +89,7 @@ const Home = () => {
                         />
                     )}
                 </View>
-                <View style={{ flex: 1.5, padding: 0 }}>
+                {weather.current?                <View style={{ flex: 1.5, padding: 0 }}>
                     <View style={{ marginBottom: 20 , alignSelf:'center'}}>
                         <Text style={{ color: 'white', textAlign: 'center', fontSize: 24, fontWeight: 'bold' }}>{location?.name}</Text>
                         <Text style={{ color: '#ccc', fontSize: 18, fontWeight: '600', textAlign: 'center' }}> {location?.country}</Text>
@@ -116,9 +116,13 @@ const Home = () => {
                         <WeatherDetail label="Wind" icon={require('../assets/icons/wind.png')} value={`${current?.wind_kph} km/h`} />
                         <WeatherDetail label="Humidity" icon={require('../assets/icons/drop.png')} value={`${current?.humidity}%`} />
                     </View>
-                </View>
+                </View>:
+                <View style={{alignSelf:'center',backgroundColor:'darkblue', padding:10}}>
+                    <Text style={{color:'white', fontSize:22,textAlign:'justify'}}>Data will show after your Search Click on Search button above, search on it...with text length greater than 2,wait for 2 secs for suggestions,  tap to the location</Text>
+                    </View> }
+
             </View>
-        </SafeAreaView>
+        </KeyboardAvoidingView>
     );
 }
 
