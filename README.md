@@ -18,7 +18,6 @@ To run the Weather App, follow these steps:
 
 ## Dependencies
 - react-native
-- react-native-vector-icons
 - lodash
 
 ## APIs Used
