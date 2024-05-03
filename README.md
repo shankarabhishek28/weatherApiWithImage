@@ -6,6 +6,8 @@ This is a simple weather app built with React Native. It allows users to search 
 ## Features
 - Search for weather conditions by city name
 - View detailed weather information including temperature, wind speed, humidity, etc.
+- View image slider of related weather condition
+  
 
 ## How to Run
 To run the Weather App, follow these steps:
@@ -24,5 +26,3 @@ To run the Weather App, follow these steps:
 - Weather API: Used to fetch weather data for different cities.
 - Unsplash API: Used to fetch images based on weather conditions.
 
-## License
-This project is licensed under the MIT License. See the LICENSE file for details.
